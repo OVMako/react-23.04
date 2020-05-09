@@ -17,6 +17,12 @@ class FormMessage extends Component {
     addNewMessage({author, text})
   };
 
+  handleKeyUp = (event, message) => {
+    if (event.keyCode === 13) { // Enter
+        this.setState({ messages: [ ...this.state.messages, {text: message, author: 'user'} ] });
+    }
+ };
+
   render() {
     const { text, author } = this.state;
     
@@ -25,11 +31,9 @@ class FormMessage extends Component {
       <form onSubmit={this.onSubmit}>
         <input
           type="text"
-          name="author"
-          onChange={this.onChange}
-          value={author}
-        />
-        <textarea name="text" onChange={this.onChange} value={text} />
+          onChange={this.onChange} 
+          onKeyUp={ (event) => this.handleKeyUp(event, 'Нормально') } 
+          value={text} />
         <button type="submit">Add message</button>
       </form>
     );
