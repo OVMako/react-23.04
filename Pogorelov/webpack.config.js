@@ -24,6 +24,7 @@ module.exports = {
       },
     ],
   },
+  
   devServer: {
     contentBase: path.join(__dirname, "build"),
     compress: true,
@@ -34,5 +35,10 @@ module.exports = {
       filename: "index.html",
       template: "src/index.html",
     }),
+    {
+      test: /\.css$/,
+      loader: 'style-loader!css-loader',
+    },
+
   ],
 };

@@ -2,29 +2,30 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import Example from "./Example";
 import FormMessage from "./FormMessage";
+import '../styles.css';
  
 
 class HelloMessage extends Component {
   
 
     state = {
-      messages: [], 
+      messages: [{ text: "Привет", author: "bot" }, { text: "Как дела?", author: "bot" }], 
     };
 
 
 
     addMessage = () => {
       this.setState(({ messages }) => ({
-        messages: [...messages, { text: "привет", author: "User" }],
+        messages: [...messages, { text: "Нормально", author: "User" }],
       }));
     };
 
     componentDidUpdate() {
       const { messages } = this.state;
-      if (messages[messages.length - 1].author !== "Бот") {
+      if (messages[messages.length - 1].author !== "bot") {
         setTimeout(() => {
           this.setState(({ messages }) => ({
-            messages: [...messages, { text: "привет, я бОТ", author: "Бот" }],
+            messages: [...messages, { text: "я робот, я очень занят", author: "bot" }],
           }));
         }, 1000);
       }
@@ -37,18 +38,18 @@ class HelloMessage extends Component {
   render() {
     const { messages } = this.state;
     return (
-      <div>
+      <div className="layout">
+      <div className="message-field">
         <h2>Привет, {this.props.name}</h2>
-        <ul>
-          
-          {messages.map(({text, author}, index) => (
-             <li key={index}> 
-              <p>{`${author}: ${text}`}</p>
-            </li>
-          ))}          
-        </ul>       
+              {messages.map(({text, author}, index) => (
+              <p key={index} className="message" 
+              style={ { alignSelf: author === 'bot' ?
+                   'flex-start' : 'flex-end' } }>{`${author}: ${text}`}</p>
+            ))}         
+      </div>
+        <button onClick={this.addMessage}>Отправить сообщение</button>     
         <FormMessage addNewMessage={this.addNewMessage} />
-        <button onClick={this.addMessage}>Click</button>
+        
       </div>
     );
   }
