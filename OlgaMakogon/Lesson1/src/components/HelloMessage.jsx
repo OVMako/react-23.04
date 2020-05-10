@@ -10,7 +10,6 @@ class HelloMessage extends Component {
 
     state = {
       messages: [{ text: "Привет", author: "bot" }, { text: "Как дела?", author: "bot" }], 
-      textarea: '',
     };
 
 
@@ -43,13 +42,9 @@ class HelloMessage extends Component {
       <div className="message-field">
         <h2>Привет, {this.props.name}</h2>
               {messages.map(({text, author}, index) => (
-              <div key={index} className="message" 
+              <p key={index} className="message" 
               style={ { alignSelf: author === 'bot' ?
-                   'flex-start' : 'flex-end' } }>
-                     <div>{ text }</div>
-           <div className="message-sender">{ author }</div>
-
-                     </div>
+                   'flex-start' : 'flex-end' } }>{`${author}: ${text}`}</p>
             ))}         
       </div>
         <button onClick={this.addMessage}>Отправить сообщение</button>     
